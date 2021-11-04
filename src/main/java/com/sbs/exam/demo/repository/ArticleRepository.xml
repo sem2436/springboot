@@ -40,7 +40,7 @@
 				title = #{title},
 			</if> 
 			<if test="body != null and body != ''">
-				`body` = #{body}
+				`body` = #{body},
 			</if>
 			updateDate = NOW(),
 		</set> 

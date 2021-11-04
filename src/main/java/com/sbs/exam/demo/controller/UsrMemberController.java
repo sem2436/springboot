@@ -47,7 +47,7 @@ public class UsrMemberController {
 		
 		Member member = memberService.getMemberById((int) joinRd.getData1());
 		
-		return ResultData.newRd(joinRd, member);
+		return ResultData.newRd(joinRd, "member", member);
 	}
 	
 	@RequestMapping("/usr/member/getMember")
@@ -59,7 +59,7 @@ public class UsrMemberController {
 			return ResultData.from("F-1", "없는 회원번호 입니다.");
 		}
 		
-		return ResultData.from("S-1", Ut.f("%d번 회원 입니다.", id), member);
+		return ResultData.from("S-1", Ut.f("%d번 회원 입니다.", id), "member", member);
 	}
 	
 	@RequestMapping("/usr/member/doLogin")
