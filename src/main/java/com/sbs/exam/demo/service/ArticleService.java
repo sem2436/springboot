@@ -23,22 +23,42 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 게시물이 생성되었습니다.", id), "id", id);
 	}
 	
-	public Article getArticle(int id) {
-		return articleRepository.getArticle(id);
+	public Article getForPrintArticle(int actorId, int id) {
+		Article article = articleRepository.getForPrintArticle(id);
+		
+		updatePrintForData(actorId, article);
+		
+		return article;
 	}
 	
-	public List<Article> getArticles() {
-		return articleRepository.getArticles();
+	public List<Article> getForPrintArticles(int actorId) {
+		List<Article> articles= articleRepository.getForPrintArticles();
+		
+		for(Article article : articles) {
+			updatePrintForData(actorId, article);
+		}
+		
+		return articles;
 	}
 	
+	private void updatePrintForData(int actorId, Article article) {
+		if(article == null) {
+			return;
+		}
+		
+		if(article.getMemberId() == actorId) {
+			article.setExtra__actorCanAction(true);
+		}
+	}
+
 	public void deleteArticle(int id) {
 		articleRepository.deleteArticle(id);
 	}
 	
-	public ResultData<Article> modifyArticle(int id, String title, String body) {
+	public ResultData<Article> modifyArticle(int actorId, int id, String title, String body) {
 		articleRepository.modifyArticle(id, title, body);
 		
-		Article article = getArticle(id);
+		Article article = getForPrintArticle(actorId, id);
 		
 		return ResultData.from("S-1", Ut.f("%d번 게시물이 수정되었습니다", id), "article", article);
 	}

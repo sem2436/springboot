@@ -1,6 +1,10 @@
 server:
   port: 8080
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
   datasource:
     # driver-class-name: com.mysql.cj.jdbc.Driver
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
@@ -9,3 +13,7 @@ spring:
     password: sbs123414  
 mybatis:
   type-aliases-package: com.sbs.exam.demo.vo
+custom:
+  logging:
+  dir: log
+  level: debug
